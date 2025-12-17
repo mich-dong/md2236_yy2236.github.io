@@ -3,3 +3,12 @@ description: Infection simulation by md2236 and yy2236.
 theme: just-the-docs
 
 url: https://mich-dong.github.io/md2236_yy2236.github.io/
+
+permalink: pretty
+
+defaults:
+  - scope:
+      path: "docs" # an empty string here means all files in the project
+      type: "pages"
+    values:
+      layout: "default"
