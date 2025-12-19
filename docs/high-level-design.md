@@ -50,7 +50,7 @@ Some parameters that users cannot interface with currently, but are implemented 
 
 ## Block Diagram
 
-[![Enclosure]({{ site.baseurl }}/assets/images/Blockdiagram.png)]({{ site.baseurl }}/assets/images/Blockdiagram.png)
+[![Block Diagram]({{ site.baseurl }}/assets/images/Blockdiagram.png)]({{ site.baseurl }}/assets/images/Blockdiagram.png)
 
 ---
 
