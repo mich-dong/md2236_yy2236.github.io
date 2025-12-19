@@ -21,7 +21,7 @@ There are a diverse number of individual methodologies as to designing agent-bas
 Collision physics simulation can easily be modified to simulate a variety of other effects when its structure is examined. Fundamentally, it is an event that triggers when a ball is within a certain distance of another ball. By altering the event, involving probability as to if the event can occur, and assigning unique distances for each event, we can simulate all our desired parameters. We employ this setup for calculating infections, social distancing, and ball-wall collisions.  
 The traditional approach to calculating distance is using the Pythagorean Theorem.  
 
-ADD PHOTO + FIX MATH 
+![Pythagorean Theorem]({{ site.baseurl }}/assets/images/Pythag.png)
 
 By keeping track of each ball’s $x$ and $y$ coordinates in terms of which pixels their centers are occupying, we can calculate the distance between balls as prescribed in the above diagram. However, because we expected efficiency and memory to be our #1 issue, we decided to instead use the alpha beta approximation in order to avoid multiplication of large numbers. 
 
