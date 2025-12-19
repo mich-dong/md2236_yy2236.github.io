@@ -7,6 +7,8 @@ baseurl: "/md2236_yy2236.github.io"
 
 permalink: pretty
 
+mathjax: true
+
 defaults:
   - scope:
       path: ""
