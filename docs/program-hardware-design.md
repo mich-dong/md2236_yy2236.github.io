@@ -24,6 +24,21 @@ The sizes of the arrays were a key obstacle, as they cannot be determined from a
 
 ## Structs
 
+This project uses a single main struct, Boid, to represent each simulated agent (each person/ball) in the epidemic. The goal of the struct is to keep all state that belongs to one agent in one place so the simulation can update movement, infection status, and rendering consistently. Instead of having separate arrays for position, velocity, color, infection timing, etc., the struct bundles those variables together so each boid can be updated by passing around a pointer to that boid.
+The Boid struct stores the agent’s physical state: x and y represent the boid’s position on the VGA screen, and vx and vy represent velocity. All four are stored as fix15 fixed-point values. Using fixed-point math is important on the RP2040 because it avoids slow floating-point operations inside the main animation loop while still allowing smooth motion (fractional pixel velocities). In practice, the simulation updates position by adding velocity each frame, then applies wall constraints and social distancing corrections.
+
+The struct also stores the agent’s zone membership using the zone field. The screen is divided into 12 neighborhood boxes, and zone indicates which neighborhood the boid currently belongs to. This zone membership determines which other boids the agent interacts with for infection checks and social distancing. The program maintains a separate per-zone list of boid indices, and the zone field is the boid’s label that keeps the boid consistent with those lists. When move_neighborhood() relocates an agent, this field is updated, and the boid’s index is moved between the zone lists.
+
+For rendering and disease state, the struct contains color and old_color. Color is the boid’s current visible state (for example GREEN for susceptible, RED for infected, BLUE for recovered, DARK_BLUE for dead, and PINK for vaccinated susceptible). old_color stores what the color was in the previous frame. This matters because the animation code must erase the boid from its previous position using the correct drawing behavior before drawing the new frame. Since infected agents also draw an infection radius ring, knowing the previous color helps ensure the old ring is erased properly if a boid changes state.
+
+The struct includes multiple variables specifically for infection timing and transmission control. infection_start_time records the frame number when the agent became infected. This enables the recovery logic to compute how long the agent has been infected and transition it to recovered once it exceeds the infection duration. If an agent has never been infected, this value is set to -1, which provides a clean “never infected” sentinel value. The field infection_cooldown is used to enforce a short delay after infecting someone, preventing an infected boid from transmitting continuously every check. This makes spread more realistic and prevents extremely fast chain reactions that would be dominated by the discrete update loop rather than interpretable epidemic dynamics.
+
+Vaccination status is stored in the boolean field vax. This flag is assigned randomly at spawn time and remains constant. It is used in the infection model to decide which transmission probability should apply when that agent is exposed. Vaccinated susceptible agents are also drawn in a distinct color (PINK) so it is visually obvious which agents have lower infection risk. When a vaccinated agent becomes infected, the simulation updates the vaccination counter to reflect that the “vaccinated susceptible pool” has decreased.
+
+Finally, the struct contains is_dead, a boolean that marks whether the agent has died. This is separate from the color alone because death has mechanical meaning beyond appearance. When is_dead is true, the boid is excluded from movement updates and disease updates; it cannot infect others, recover, or be reprocessed by the infection logic. This prevents dead boids from continuing to influence epidemic transitions incorrectly. Visually, dead boids are also colored DARK_BLUE and their velocity is set to zero, so they remain stationary on the screen.
+
+In summary, the Boid struct serves as the core data model for each individual in the simulation. It combines motion state (position/velocity), rendering state (color), epidemiological state (infection timing, cooldown, vaccination, death), and spatial area (zone membership). This organization makes the code simpler to reason about: each update step can treat the boid as a single unit, which reduces bugs that would otherwise come from managing many separate arrays that must stay synchronized.
+
 --- 
 
 ## ADC
@@ -50,6 +65,11 @@ Finally, the simulation includes explicit cross-community spread using neighborh
 
 ## Social Distancing 
 
+Social distancing in our simulation is implemented as a local collision-avoidance/separation rule that reduces close clustering of agents. Conceptually, instead of letting boids pass through each other or remain tightly packed, each boid actively maintains a minimum separation distance from nearby boids in the same zone. This separation distance is controlled by a “social distance radius” parameter that can be adjusted during runtime.
+
+The social distancing routine is applied during the motion update. For each boid, the program checks the other boids in the same zone and determines whether another boid is too close. Rather than requiring exact collision math, the implementation uses a practical approximation: it looks at the x and y separations and triggers a response if the boids are within the social-distance threshold. When a violation is detected, the boid is repositioned to the edge of the minimum-distance boundary (so it is no longer overlapping the restricted area), and its velocity is reversed. This produces a visible “bounce away” effect that prevents persistent overlap and reduces sustained close contact.
+
+This social distancing mechanism directly impacts infection dynamics because infection requires proximity. With larger distancing radii, agents spend less time within infection range of one another, which reduces the number of repeated exposure checks and lowers the overall effective transmission rate. With smaller distancing radii, clustering becomes more common, increasing exposure duration and leading to more rapid spread. Because social distancing is applied continuously during movement, its effects are immediate and easy to observe visually. You can typically see that higher distancing values cause agents to distribute more evenly within each neighborhood cell and reduces the tight swarming behavior that otherwise accelerates infection.
 
 --- 
 
