@@ -17,7 +17,8 @@ Where we took design liberty is in the implementation, as 3Blue1Brown’s implem
 
 ## Background Math
 
-There are a diverse number of individual methodologies as to designing agent-based epidemic models. We chose to employ a combination of simple probability measurements, as well as collision physics simulations to model our parameters. The choice of using balls moving around in grids is, as mentioned prior, sourced from 3Blue1Brown’s design in his video. We then model human movement within a community as ball interactions, allowing us to use modified collision physics simulation code to model our various parameters
+There are a diverse number of individual methodologies as to designing agent-based epidemic models. We chose to employ a combination of simple probability measurements, as well as collision physics simulations to model our parameters. The choice of using balls moving around in grids is, as mentioned prior, sourced from 3Blue1Brown’s design in his video. We then model human movement within a community as ball interactions, allowing us to use modified collision physics simulation code to model our various parameters.
+
 Collision physics simulation can easily be modified to simulate a variety of other effects when its structure is examined. Fundamentally, it is an event that triggers when a ball is within a certain distance of another ball. By altering the event, involving probability as to if the event can occur, and assigning unique distances for each event, we can simulate all our desired parameters. We employ this setup for calculating infections, social distancing, and ball-wall collisions.  
 The traditional approach to calculating distance is using the Pythagorean Theorem.  
 
@@ -35,8 +36,22 @@ $$
 
 All probability parameters are done using simple division. We randomly generate a number between a chosen range (which is different for each parameter to create a realistic model) and if it is below the parameter probability, then the event occurs (say, death). The exact determination of what constitutes an “accurate” range was not calculated, but intuited based on our observations.
 
-The reasoning for this choice is, for one, because it is relatively difficult to precisely model the actual probability of any given event. In our design, we are checking for infections/death etc. at 3 Hz. We picked 3Hz after trial and error, finding it to limit the epidemic to a desirable time frame (within a few minutes), and effectively demonstrate each parameter’s effects without things changing too fast/slow to be observed. The actual probability of an infection per ball-ball encounter is  P(at least 1 success in n rolls) = 1-P(no success in n rolls) , in which P(no success in n rolls) =( 1-P(infection))n and n = num. We can thus see that since 1-P(infection) is always <1 (as all probabilities are), then as the number of rolls increase, it is far more likely for a success to occur. 
+The reasoning for this choice is, for one, because it is relatively difficult to precisely model the actual probability of any given event. In our design, we are checking for infections/death etc. at $3\,\text{Hz}$. We picked $3\,\text{Hz}$ after trial and error, finding it to limit the epidemic to a desirable time frame (within a few minutes), and effectively demonstrate each parameter’s effects without things changing too fast/slow to be observed. The actual probability of an infection per ball-ball encounter is  
+
+$$
+P(\text{at least 1 success in } n \text{ rolls}) = 1 - P(\text{no success in } n \text{ rolls})
+$$
+
+, in which  
+
+$$
+P(\text{no success in } n \text{ rolls}) = (1 - P(\text{infection}))^n
+$$
+
+and $n = \text{num}$. We can thus see that since $1 - P(\text{infection})$ is always $< 1$ (as all probabilities are), then as the number of rolls increase, it is far more likely for a success to occur.
+
 We could, of course, choose to ascribe the probability to only when a ball enters another ball’s radius. However, that would also be an inaccurate model, as in real life, longer exposure time, more close contact is more likely to cause disease spread compared to a brief, distant one. Furthermore, our project goal is not to create an accurate model that can precisely predict exactly how an actual epidemic would spread. Instead, it is meant to simulate the relative relationships between each parameter in an epidemic. Thus, though we picked 3Hz subjectively, it creates a constant error across all parameter’s effects. The relative relationship between parameters, however, remains the same.
+
 
 Our chosen, changeable parameters are described below. Each specific implementation will be discussed further in the program design section. 
 Infection Radius: How close balls must be for infection to potentially occur
