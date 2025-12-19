@@ -7,6 +7,8 @@ nav_order: 3
 
 At 30 FPS, we are able to simulate a max of 800 balls before frame rate drops. However around 200 balls can be displayed before the tree graph overflows.
 
+[![Screenshot]({{ site.baseurl }}/assets/images/Blockdiagram.png)]({{ site.baseurl }}/assets/images/Screen.png)
+
 Throughout testing, the system exhibited stable and responsive behavior with no visible flicker, tearing, or hesitation during normal operation. VGA timing remained consistent, and drawing was synchronized to the display refresh to avoid artifacts. User interactions through the potentiometer sliders resulted in immediate and smooth parameter updates, demonstrating good interactivity. The use of concurrent execution which included separating simulation updates, ADC input handling, and VGA rendering into different protothreads and cores, we were able to allow the system to remain responsive even as computational load increased.
 
 The system maintained reliable timing and signal generation across subsystems. The VGA output adhered to expected horizontal and vertical synchronization timing, producing a stable display with consistent geometry. Audio feedback generated during infection events produced audible tones at the intended frequencies, with smooth envelope shaping and no noticeable distortion. While the epidemiological model is not intended to be numerically predictive of real-world outbreaks, the simulation accurately reflects the designed probabilistic rules and timing relationships, and parameter changes consistently produce the expected qualitative effects.
