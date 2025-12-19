@@ -41,7 +41,7 @@ Some parameters that users cannot interface with currently, but are implemented 
 
 ## Block Diagram
 
-ADD PHOTO
+[![Enclosure]({{ site.baseurl }}/assets/images/Blockdiagram.jpg)]({{ site.baseurl }}/assets/images/Blockdiagram.jpg)
 
 ---
 
