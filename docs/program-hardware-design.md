@@ -134,7 +134,8 @@ All of our designs were done on breadboard, then hand-soldered in order to impro
 
 ## VGA Connection
 
-ADD PHOTO 
+![VGA]({{ site.baseurl }}/assets/images/VGApinouts.png)
+
 
 There are 6 pins required to communicate via the VGA protocol with the screen: 4 colors (RED, GREEN (low), GREEN (high), and BLUE) and two synchronization signals (HYSNC and VSYNC). (See Diagram X for pinouts). These pins are connected to a custom PCB board with 330 Ohms resistors soldered in series with the BLUE, RED, and GREEN (high) signals and a 470 Ohms resistor in series with the GREEN (low) signal. These signals then connect to a VGA male head, which can be connected to a monitor via a VGA cable. The resistors, combined with the internal resistance of the display, decrease the input (3.3V) to 0.7V at the output voltage. (a different valued resistor is used on GREEN (high) in order to differentiate the two signals) This is because 3.3V is too high for the display and will damage the circuitry. Since there are four bits of data available for the color, this means that the total color signal is a 42=16 bits 25MHz signal. The synchronization pins are command signals: VSYNC determines when new frames are to be updated and HYSNC determines when each row of pixels within that frame is updated. The display is 640 pixels long, 480 pixels tall. 
 
