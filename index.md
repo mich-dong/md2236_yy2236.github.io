@@ -20,7 +20,7 @@ We chose to tackle simulating an agent-based model on the RP2040’s limited har
 <div style="display: flex; justify-content: center;">
   <div style="position: relative; width: 80%; padding-bottom: 45%; height: 0;">
     <iframe
-      src="[https://www.youtube.com/embed/VIDEO_ID](https://youtu.be/46gfggSQE6U?si=dS0-FvN6VQmbrYfH)"
+      src="https://www.youtube.com/embed/46gfggSQE6U"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
@@ -28,4 +28,3 @@ We chose to tackle simulating an agent-based model on the RP2040’s limited har
     </iframe>
   </div>
 </div>
-
