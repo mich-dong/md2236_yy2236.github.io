@@ -41,6 +41,8 @@ Some parameters that users cannot interface with currently, but are implemented 
 
 ADD PHOTO
 
+---
+
 ## Hardware-Software Design Tradeoffs
 One key software trade off is whether to employ 2, 3 or 4-bit color with the VGA. Experience has shown that after sufficient optimization, the key limitation to the scale of the simulation both temporally (in terms of the graphs) and spatially (the number of balls) is a lack of memory space on the Raspberry Pi Pico board. By increasing the bits used for color, we effectively increase the space each pixel takes up in memory for ALL pixels. The easiest solution is to reduce our palette for optimization. However, we ultimately decided not to reduce our palette, and maintain 4-bit color, giving us a choice of 16 colors for animation. While optimization was important, we recognized that our goal was to provide a visualization of disease spread. The less colors we had, the harder it is to distinguish different colored traits from each other. (e.g. infected from susceptible, or which grid a ball belonged to on the tree graph) In the end, we ended up utilizing every color available, demonstrating that this was a necessary sacrifice of optimization. 
 
