@@ -56,4 +56,6 @@ See Appendix for pre-emptive measures of tradeoffs we did not successfully imple
 
 ## Existing Copyrights
 
-The enclosure we used was found online and under a Creative Commons (4.0 International License), which permits non-commercial usage with attribution. The original design and creator can be found at https://www.printables.com/model/409654-raspberry-pi-4-ssdhdd-case. 
+The enclosure we used was found online and under a Creative Commons (4.0 International License), which permits non-commercial usage with attribution. The original design and creator can be found at:
+[https://www.printables.com/model/409654-raspberry-pi-4-ssdhdd-case](https://www.printables.com/model/409654-raspberry-pi-4-ssdhdd-case)
+
