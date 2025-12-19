@@ -4,6 +4,8 @@ layout: default
 nav_order: 1
 ---
 
+# High-level Design
+
 ## Rationale
 
 We were primarily inspired by the UI/UX experience in the Youtuber 3Blue1Brown’s video on epidemic simulation, as well as our own lived experiences of the Covid-19 pandemic. We did not examine his software design so as to not plagiarize, and only aimed to create a similar UI/UX experience at the surface level. 
