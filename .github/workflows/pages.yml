@@ -31,8 +31,11 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
-      - name: Build with Jekyll (uses Gemfile)
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+      - name: Install gems
+        run: bundle install
+
+      - name: Build site with Jekyll (Gemfile)
+        run: bundle exec jekyll build --source . --destination ./_site --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
 
@@ -48,6 +51,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
