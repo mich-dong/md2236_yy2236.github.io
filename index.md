@@ -6,16 +6,16 @@ nav_order: 0
 
 ## Project Introduction
 
-*One sentence “sound bite” that describes your project.*
+Our final project is a stochastic, agent-based epidemic simulator with adjustable parameters through physical sliders and displayed via VGA on a 640 x 480 screen alongside statistical graphs demonstrating the spread of the disease. 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 ---
 
 ## Project Summary
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Epidemic simulations can be divided into two broad philosophies: deterministic SIR (Susceptible-Infected-Recovered) models and stochastic agent-based models. In SIR models, differential equations are matched to the desired modeled scenario, which are then solved to show the result of the epidemic. It is deterministic because the result does not change per run. An agent-based simulation prescribes behavior parameters to each agent (in our case, balls representing people), which then are simulated to interact. Some randomness is then incorporated to make each run unique, determined by each step of the simulation, thus stochastic. However, in the long run, total runs will converge to the average expected behavior. 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+We chose to tackle simulating an agent-based model on the RP2040’s limited hardware. We chose this over the SIR based model because we wanted to create a simulation that is both interactive and educational, allowing the user to play with the relevant parameters and observe how their combined effects can affect how an epidemic spreads, and its results. We also implement spatial (tree) and temporal (auto-scaling population distribution graph) data displays in order to better represent the larger changes in the system.
+
 
 ---
