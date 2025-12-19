@@ -17,4 +17,15 @@ Epidemic simulations can be divided into two broad philosophies: deterministic S
 
 We chose to tackle simulating an agent-based model on the RP2040’s limited hardware. We chose this over the SIR based model because we wanted to create a simulation that is both interactive and educational, allowing the user to play with the relevant parameters and observe how their combined effects can affect how an epidemic spreads, and its results. We also implement spatial (tree) and temporal (auto-scaling population distribution graph) data displays in order to better represent the larger changes in the system.
 
+<div style="display: flex; justify-content: center;">
+  <div style="position: relative; width: 80%; padding-bottom: 45%; height: 0;">
+    <iframe
+      src="[https://www.youtube.com/embed/VIDEO_ID](https://youtu.be/46gfggSQE6U?si=dS0-FvN6VQmbrYfH)"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+    </iframe>
+  </div>
+</div>
 
