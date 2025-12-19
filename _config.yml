@@ -9,7 +9,7 @@ permalink: pretty
 
 defaults:
   - scope:
-      path: "docs" 
-      type: "pages"
+      path: ""
     values:
       layout: "default"
+
