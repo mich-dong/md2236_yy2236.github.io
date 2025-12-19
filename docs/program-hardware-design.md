@@ -34,6 +34,18 @@ The ADC readings from the switches are managed on its own protothread in Core 0 
 
 ## Infection
 
+Infection in our simulation is modeled as a local, proximity-based transmission event that only occurs between agents that are currently in the same neighborhood (zone). Each boid belongs to one of 12 zones, and the program maintains a per-zone list of which boids are inside it. This matters for performance and realism: instead of checking every boid against every other boid globally, the simulation only checks pairs within the same zone, which both reduces computation and represents “community clustering” (most infections happen within a local group).
+
+At initialization, all agents begin as susceptible (drawn green), except for a single randomly chosen patient zero (drawn red). The simulation then repeatedly runs infection checks at a controlled frequency. Rather than testing infection continuously every frame, the code uses a fixed infection-check, which checks every few frames. This makes the epidemic unfold on an observable time scale and avoids infections happening “too fast” simply because the VGA loop runs quickly. Conceptually, each infection check acts like one discrete “chance” for transmission while two agents are close.
+
+A transmission event occurs when a susceptible (or vaccinated) agent is within an effective infection radius of an infected agent. The effective radius is based on the infection-radius parameter plus the boid’s physical radius, meaning the simulation accounts for the fact that the agents have nonzero size. If two agents remain close across multiple checks, the code will evaluate transmission repeatedly, which implicitly models longer exposure time increasing risk.
+
+When a susceptible agent is eligible to be infected, the simulation applies a probability rule. The probability used depends on whether that susceptible agent is vaccinated or not: unvaccinated agents use the “normal” infection probability, while vaccinated agents use a separate (typically lower) probability. This allows the model to demonstrate how vaccination changes transmission outcomes without requiring a complex biological model.
+
+Two additional rules prevent unrealistic behavior. First, newly infected agents have a cooldown before they can infect others again. This prevents the simulation from instantly infecting everyone immediately and makes the transmission chain more readable and realistic (spread takes time). Second, once an agent has been infected at least once, it is marked as “active” for the transmission network. The code uses this to avoid repeatedly re-infecting the same person for the purposes of the infection tree and keeps the tree structure interpretable as a record of first infections.
+
+Finally, the simulation includes explicit cross-community spread using neighborhood movement. At random times, one agent may be relocated to a different zone based on a movement probability. This is important because if zones were perfectly isolated, outbreaks would remain trapped inside one zone. Allowing occasional movement creates realistic “bridges” between communities and lets the model demonstrate how mobility strongly increases outbreak size and speed.
+
 --- 
 
 ## Social Distancing 
