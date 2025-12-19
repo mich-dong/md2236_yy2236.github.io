@@ -23,7 +23,15 @@ The traditional approach to calculating distance is using the Pythagorean Theore
 
 ADD PHOTO + FIX MATH 
 
-By keeping track of each ball’s $x$ and $y$ coordinates in terms of which pixels their centers are occupying, we can calculate the distance between balls as prescribed in the above diagram. However, because we expected efficiency and memory to be our #1 issue, we decided to instead use the alpha beta approximation in order to avoid multiplication of large numbers. The alpha beta approximation states that the sum of two squared values, and therefore distance squared $= a^2 + b^2 \approx \alpha \cdot \mathrm{Max} + \beta \cdot \mathrm{Min}$, in which $\alpha$ and $\beta$ are set constants, Max is the larger absolute value between $a$ and $b$, while Min is smaller. We then only need to compare this to the relevant radius (infection, social distancing, etc.) squared to determine if two balls (or a ball and a wall) are within distance.  
+By keeping track of each ball’s $x$ and $y$ coordinates in terms of which pixels their centers are occupying, we can calculate the distance between balls as prescribed in the above diagram. However, because we expected efficiency and memory to be our #1 issue, we decided to instead use the alpha beta approximation in order to avoid multiplication of large numbers. 
+
+The alpha beta approximation states that the sum of two squared values, and therefore distance squared
+
+$$
+= a^2 + b^2 \approx \alpha \cdot \mathrm{Max} + \beta \cdot \mathrm{Min}
+$$
+
+, in which $\alpha$ and $\beta$ are set constants, Max is the larger absolute value between $a$ and $b$, while Min is smaller. We then only need to compare this to the relevant radius (infection, social distancing, etc.) squared to determine if two balls (or a ball and a wall) are within distance.  
 
 All probability parameters are done using simple division. We randomly generate a number between a chosen range (which is different for each parameter to create a realistic model) and if it is below the parameter probability, then the event occurs (say, death). The exact determination of what constitutes an “accurate” range was not calculated, but intuited based on our observations.
 
