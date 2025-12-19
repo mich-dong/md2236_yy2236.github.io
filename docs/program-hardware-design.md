@@ -54,7 +54,13 @@ Finally, the simulation includes explicit cross-community spread using neighborh
 --- 
 
 ## Death
+Death is modeled as a probabilistic event that can occur only to agents that are currently infected. In the simulation, death is checked periodically. This is done for the same reason as infection: it makes the system behavior observable and keeps outcomes from being dominated by the speed of the simulation loop.
 
+When the death condition triggers for an infected agent, several state changes happen immediately to reflect removal from the active population. The agent’s velocity is set to zero, meaning it stops moving permanently, and its color is changed (dark blue) to provide a clear visual indicator that it is no longer participating in interactions. The infected count is decreased, and a global death counter increases. In addition, dead agents are excluded from future infection logic and recovery logic. That means a dead agent cannot infect others, cannot be infected again, and cannot transition into the recovered category. Functionally, they are removed from disease dynamics.
+
+The model also enforces a cap on total deaths. This cap is a design choice to keep the simulation meaningful over a few minutes: without a cap, higher death probabilities could quickly eliminate most infected agents and end the outbreak prematurely, making it harder to compare parameter effects. With the cap, death still visibly affects the epidemic, reducing the infected population and altering the SIR curve, while preserving enough ongoing activity for analysis.
+
+In terms of interpretation, death acts similarly to an absorbing “removed” state, but it is visually and mechanically distinct from recovery. Recovery transitions an agent into a recovered state (blue) that represents immunity or removal without eliminating motion, while death transitions an agent into a fully inactive state (dark blue) that no longer contributes to contact patterns. This difference matters because recovered agents still move and can influence crowding and spatial mixing, while dead agents become stationary obstacles that can indirectly affect movement patterns in a neighborhood.
 
 ---
 
