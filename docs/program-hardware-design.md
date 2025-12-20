@@ -97,6 +97,23 @@ Trial and error proved that no additional threads can be added to Core 1 besides
 ## Graphs
 Two real-time graphs are displayed on the VGA screen in addition to the moving agents: a time-series SIR graph and an infection transmission tree. Together, these visualizations are used to understand both the overall progression of the outbreak and the individual pathways through which the infection spreads. The simulation logic runs independently from the rendering logic, which allows the system to update disease dynamics continuously while the graphs reflect those changes in real time without slowing the simulation.
 
+<div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;">
+
+  <img
+    src="{{ "/assets/images/Nodegraph.png" | relative_url }}"
+    alt="Node graph"
+    style="width: 45%; min-width: 250px; height: auto;"
+  >
+
+  <img
+    src="{{ "/assets/images/SIRgraph.png" | relative_url }}"
+    alt="SIR graph"
+    style="width: 45%; min-width: 250px; height: auto;"
+  >
+
+</div>
+
+
 The VGA display is divided into distinct functional regions. The left side of the screen shows the simulated population, where agents move inside twelve neighborhood boxes arranged in a grid. Each neighborhood is visually outlined and assigned a unique color to make spatial separation and movement between neighborhoods easy to see. The right side of the screen is reserved for graphing. The upper-right region displays the transmission tree, while the lower-right region displays the SIR time-series graph. Keeping these regions fixed prevents overlap and ensures the graphs remain stable and readable throughout the simulation.
 
 The SIR graph provides a high-level summary of how the disease evolves over time. The simulation maintains running counts of how many agents are susceptible, infected, and recovered. These values are updated whenever an infection occurs, when an infected agent recovers after a fixed duration, or when a death occurs. At each time step, the current values of S, I, and R are recorded into history arrays. These arrays allow the system to plot the entire outbreak trajectory rather than just the current state.
