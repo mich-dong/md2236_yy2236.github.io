@@ -134,10 +134,34 @@ All of our designs were done on breadboard, then hand-soldered in order to impro
 
 ## VGA Connection
 
-![VGA]({{ site.baseurl }}/assets/images/VGApinouts.png)
+<div style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
 
+  <!-- Image column -->
+  <div style="flex: 1; min-width: 250px; text-align: center;">
+    <img
+      src="{{ "/assets/images/VGApinouts.png" | relative_url }}"
+      alt="VGA pinouts"
+      style="max-width: 100%; height: auto;"
+    >
+  </div>
 
-There are 6 pins required to communicate via the VGA protocol with the screen: 4 colors (RED, GREEN (low), GREEN (high), and BLUE) and two synchronization signals (HYSNC and VSYNC). (See Diagram X for pinouts). These pins are connected to a custom PCB board with 330 Ohms resistors soldered in series with the BLUE, RED, and GREEN (high) signals and a 470 Ohms resistor in series with the GREEN (low) signal. These signals then connect to a VGA male head, which can be connected to a monitor via a VGA cable. The resistors, combined with the internal resistance of the display, decrease the input (3.3V) to 0.7V at the output voltage. (a different valued resistor is used on GREEN (high) in order to differentiate the two signals) This is because 3.3V is too high for the display and will damage the circuitry. Since there are four bits of data available for the color, this means that the total color signal is a 42=16 bits 25MHz signal. The synchronization pins are command signals: VSYNC determines when new frames are to be updated and HYSNC determines when each row of pixels within that frame is updated. The display is 640 pixels long, 480 pixels tall. 
+  <!-- Text column -->
+  <div style="flex: 2; min-width: 300px;">
+    <p>
+      There are 6 pins required to communicate via the VGA protocol with the screen: 4 colors (RED, GREEN (low), GREEN (high), and BLUE) and two synchronization signals (HSYNC and VSYNC). (See Diagram X for pinouts). These pins are connected to a custom PCB board with 330&nbsp;Ω resistors soldered in series with the BLUE, RED, and GREEN (high) signals and a 470&nbsp;Ω resistor in series with the GREEN (low) signal.
+    </p>
+
+    <p>
+      These signals then connect to a VGA male head, which can be connected to a monitor via a VGA cable. The resistors, combined with the internal resistance of the display, decrease the input (3.3&nbsp;V) to 0.7&nbsp;V at the output voltage. A different valued resistor is used on GREEN (high) in order to differentiate the two signals, since 3.3&nbsp;V is too high for the display and could damage the circuitry.
+    </p>
+
+    <p>
+      Since there are four bits of data available for the color, this means that the total color signal is a $4^2 = 16$-level, 25&nbsp;MHz signal. The synchronization pins are command signals: VSYNC determines when new frames are updated and HSYNC determines when each row of pixels within that frame is updated. The display resolution is 640&nbsp;×&nbsp;480 pixels.
+    </p>
+  </div>
+
+</div>
+
 
 --- 
 
