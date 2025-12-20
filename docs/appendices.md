@@ -19,6 +19,8 @@ Michelle Dong: Secondary soldering and design of: infections, social distancing,
 
 Debugging was split evenly between group members as needed. 
 
+---
+
 ## Appendix D: References
 
 [YouTube — *What is a Pandemic?*](https://www.youtube.com/watch?v=gxAaO2rsdIs)
