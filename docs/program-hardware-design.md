@@ -137,7 +137,7 @@ All of our designs were done on breadboard, then hand-soldered in order to impro
 <div style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
 
   <!-- Image column -->
-  <div style="flex: 1; min-width: 250px; text-align: center;">
+  <div style="flex: 1; min-width: 250px; text-align: center; margin-top: 24px;">
     <img
       src="{{ "/assets/images/VGApinouts.png" | relative_url }}"
       alt="VGA pinouts"
