@@ -143,6 +143,15 @@ The RGB signal pulls 4 bits of data from the Tx FIFO at a time, which is automat
 
 ---
 
+## Notable Bugs
+
+One recurring rendering bug showed up when we made the infection radius adjustable at runtime. In the animation loop, we draw an extra orange “infection ring” around infected boids using the current infection_radius. However, when the user changes the slider, the ring radius changes immediately, and if we only erase using the new radius, the old ring doesn’t get fully cleared, leaving behind ghost circles on the VGA display. This happened because the erase step needs to match whatever was drawn in the previous frame, not whatever the parameter happens to be now. We fixed this by explicitly tracking the previous infection radius (prev_infection_radius) and using that stored value when erasing the old ring. We also rely on old_color to know whether a boid was infected in the previous frame (and therefore had a ring drawn at all), so we only run the extra erase pass when b->old_color == RED. In practice, this ensured every frame erases exactly what was drawn last frame, even when sliders change mid-simulation.
+
+We also ran into a noticeable ADC jitter bug when reading the five slider potentiometers through the external CD74HC4051 mux. Initially, we switched the mux select lines and read the ADC immediately, which produced unstable readings: parameters would “flicker” even when the slider wasn’t moving. This is because after changing the mux address, the analog output takes a short time to settle, and the ADC’s sampling capacitor can also hold a leftover value from the previous channel. The fix was twofold: (1) insert a short settling delay after updating MUX_A/MUX_B/MUX_C (PT_YIELD_usec(20)), and (2) perform a dummy ADC read right after selecting the channel ((void)adc_read();) before taking the “real” sample (uint16_t raw = adc_read();). Finally, we intentionally slowed the ADC thread with PT_YIELD_usec(3000) so the parameter updates happen at a stable rate instead of amplifying noise by oversampling. Together, these changes made slider-controlled parameters smooth and repeatable during runtime.
+
+Another notable bug came from the way we implemented dynamic per-zone lists using malloc/realloc in appendGrid() and popGrid(). Each zone array stores its current length in index 0, and then actual boid IDs start at index 1. Early on, we occasionally hit random freezes or corrupted behavior (balls teleporting, infection logic breaking, or the program hanging) that traced back to out-of-bounds writes on these zone arrays. The most common cause was an off-by-one mismatch between “count” and “valid index range” during removal: if we popped an element using an index that wasn’t in [1, size], or if a loop accidentally iterated to <= size+1, we would overwrite array[0] (the stored size) or write past the allocated block. Once the size data got corrupted, the next realloc would request the wrong amount of memory and could overwrite unrelated data structures, leading to crashes that were hard to reproduce. The fix was adding strict bounds checks in popGrid(), consistently treating [0] as an attribute everywhere, and being careful that all loops over zone members run from 1 to grids[g][0] only. This stabilized the grid system and eliminated the mystery lockups.
+---
+
 # Hardware Design
 
 Our hardware design includes: a Raspberry Pi 2040 on a Pi Pico board, a MCP4822 DAC, a CD74HC4051 8-1 ADC Multiplexor, a 3.5mm audio jack, 5 10kOhms slider potentiometers, 1 reset button, 3 protoboards, a VGA PCB (designed and provided by Professor Hunter Adams), and a 3D printed enclosure. 
@@ -245,7 +254,6 @@ Originally, we planned on employing more ICs in order to minimize the work done 
 ## Reset Button
 
 In order to reset the simulation and load new programs onto the RP2040, we wired an external button to the RUN signal (pin 30) and ground (pin 28) so that we do not have to reach into the enclosure to reset. Though power cycling could work, using the RUN signal is friendlier on both the RP2040 and the user. 
-
 
 ---
 
