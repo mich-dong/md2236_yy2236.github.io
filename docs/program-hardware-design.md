@@ -24,6 +24,8 @@ The sizes of the arrays were a key obstacle, as they cannot be determined from a
 
 ## Structs
 
+We initially organized agent state using separate static arrays (one array for all x positions, one for y positions, one for velocities, colors, infection timers, and etc.) because this is simple and fast on the RP2040. However, once we introduced neighborhoods, we needed each grid to store a changing list of which ball IDs were currently inside it. Since C does not provide true dynamic arrays, we then moved to manually managed dynamic arrays using malloc()/free() so that each grid’s list could grow and shrink as balls moved between zones. While this enabled the grid system, it also introduced complexity and debugging difficulty because allocation bugs can silently corrupt memory and crash the program. To make the agent-side logic cleaner and reduce the risk of desynchronization across many separate arrays, we ultimately standardized the per-agent state into a single Boid struct, which bundles position, velocity, zone membership, color/state, infection timing, vaccination, and death flags into one coherent data record. This improved code readability and reliability because updates could operate on one object per agent rather than keeping many parallel arrays consistent.
+
 This project uses a single main struct, Boid, to represent each simulated agent (each person/ball) in the epidemic. The goal of the struct is to keep all state that belongs to one agent in one place so the simulation can update movement, infection status, and rendering consistently. Instead of having separate arrays for position, velocity, color, infection timing, etc., the struct bundles those variables together so each boid can be updated by passing around a pointer to that boid.
 The Boid struct stores the agent’s physical state: x and y represent the boid’s position on the VGA screen, and vx and vy represent velocity. All four are stored as fix15 fixed-point values. Using fixed-point math is important on the RP2040 because it avoids slow floating-point operations inside the main animation loop while still allowing smooth motion (fractional pixel velocities). In practice, the simulation updates position by adding velocity each frame, then applies wall constraints and social distancing corrections.
 
@@ -245,3 +247,8 @@ Originally, we planned on employing more ICs in order to minimize the work done 
 In order to reset the simulation and load new programs onto the RP2040, we wired an external button to the RUN signal (pin 30) and ground (pin 28) so that we do not have to reach into the enclosure to reset. Though power cycling could work, using the RUN signal is friendlier on both the RP2040 and the user. 
 
 
+---
+
+## AI Use
+
+No AI tools were used in the design, implementation, debugging, or writing of this project. All work was completed independently by the team.
