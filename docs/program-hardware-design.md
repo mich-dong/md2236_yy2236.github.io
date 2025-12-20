@@ -130,6 +130,31 @@ Our hardware design includes: a Raspberry Pi 2040 on a Pi Pico board, a MCP4822 
 
 All of our designs were done on breadboard, then hand-soldered in order to improve connection quality, and longevity of the project. We aimed to minimize space usage, and layered our protoboards in order to save space while leaving access for the micro-usb port, the VGA port, and the 3.5mm audio jack. We put insulating tape between each protoboard in order to prevent unwanted electrical connections. 
 
+![Encapsule Box]({{ site.baseurl }}/assets/images/Box.png)
+
+<div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+
+  <img
+    src="{{ "/assets/images/Front_Box.png" | relative_url }}"
+    alt="Front View"
+    style="width: 30%; min-width: 200px; height: auto;"
+  >
+
+  <img
+    src="{{ "/assets/images/Side_box.png" | relative_url }}"
+    alt="Side View"
+    style="width: 30%; min-width: 200px; height: auto;"
+  >
+
+  <img
+    src="{{ "/assets/images/Top_box.png" | relative_url }}"
+    alt="Top View"
+    style="width: 30%; min-width: 200px; height: auto;"
+  >
+
+</div>
+
+
 ---
 
 ## VGA Connection
