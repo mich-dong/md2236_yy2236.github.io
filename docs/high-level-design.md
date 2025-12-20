@@ -20,6 +20,7 @@ Where we took design liberty is in the implementation, as 3Blue1Brown’s implem
 There are a diverse number of individual methodologies as to designing agent-based epidemic models. We chose to employ a combination of simple probability measurements, as well as collision physics simulations to model our parameters. The choice of using balls moving around in grids is, as mentioned prior, sourced from 3Blue1Brown’s design in his video. We then model human movement within a community as ball interactions, allowing us to use modified collision physics simulation code to model our various parameters.
 
 Collision physics simulation can easily be modified to simulate a variety of other effects when its structure is examined. Fundamentally, it is an event that triggers when a ball is within a certain distance of another ball. By altering the event, involving probability as to if the event can occur, and assigning unique distances for each event, we can simulate all our desired parameters. We employ this setup for calculating infections, social distancing, and ball-wall collisions.  
+
 The traditional approach to calculating distance is using the Pythagorean Theorem.  
 
 ![Pythagorean Theorem]({{ site.baseurl }}/assets/images/Pythag.png)
@@ -53,12 +54,18 @@ and $n = \text{num}$. We can thus see that since $1 - P(\text{infection})$ is al
 We could, of course, choose to ascribe the probability to only when a ball enters another ball’s radius. However, that would also be an inaccurate model, as in real life, longer exposure time, more close contact is more likely to cause disease spread compared to a brief, distant one. Furthermore, our project goal is not to create an accurate model that can precisely predict exactly how an actual epidemic would spread. Instead, it is meant to simulate the relative relationships between each parameter in an epidemic. Thus, though we picked 3Hz subjectively, it creates a constant error across all parameter’s effects. The relative relationship between parameters, however, remains the same.
 
 
-Our chosen, changeable parameters are described below. Each specific implementation will be discussed further in the program design section. 
+Our chosen, changeable parameters are described below. Each specific implementation will be discussed further in the program design section.
+
 Infection Radius: How close balls must be for infection to potentially occur
+
 Social Distancing Radius: How close balls can be before they are “repelled” (modeled as collision)
+
 Change Grid Probability: The probability for a random ball to be moved to a new grid
+
 Infection Probability: The probability an infection successfully passes from one ball to another
+
 Death Probability: The chance an infected ball will “die” (no longer transmitting and becomes stationery)
+
 Some parameters that users cannot interface with currently, but are implemented in a similar fashion and could have been wired to a switch are: Vaccination Percentage, Infection Delay, Vaccination Infection Probability, and Infection Duration.
 
 ---
