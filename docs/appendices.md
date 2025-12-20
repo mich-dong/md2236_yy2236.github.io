@@ -10,6 +10,9 @@ The group approves the video for inclusion on the course youtube channel.
 --- 
 ## Appendix B: Schematics
 
+![Schematic]({{ site.baseurl }}/assets/images/Schematic.png)
+
+
 ---
 
 ## Appendix C: Task Assignment
