@@ -130,6 +130,8 @@ Our hardware design includes: a Raspberry Pi 2040 on a Pi Pico board, a MCP4822 
 
 All of our designs were done on breadboard, then hand-soldered in order to improve connection quality, and longevity of the project. We aimed to minimize space usage, and layered our protoboards in order to save space while leaving access for the micro-usb port, the VGA port, and the 3.5mm audio jack. We put insulating tape between each protoboard in order to prevent unwanted electrical connections. 
 
+![RP2040]({{ site.baseurl }}/assets/images/RP2040.jpg)
+
 ![Encapsule Box]({{ site.baseurl }}/assets/images/Box.jpg)
 
 <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
@@ -187,6 +189,7 @@ All of our designs were done on breadboard, then hand-soldered in order to impro
 
 </div>
 
+![VGA and Audio]({{ site.baseurl }}/assets/images/VGAaudio.jpg)
 
 --- 
 
@@ -197,6 +200,8 @@ We connected 3 of the GPIOs of the RP2040 to the binary select pins for a 8-1 AD
 The five slider switches we used are 10kOhm potentiometers. We decided to use these over the traditional dial potentiometers to better visualize the maximum and minimum of the changeable parameters. These potentiometers are powered by the 3.3V rail off the RP2040, with the divider pin connected to the mux’s inputs. As we found digital filtering was sufficient in this case, we did not use any analog filtering. 
 
 Originally, we planned on employing more ICs in order to minimize the work done by the Raspberry Pi Pico, as well as an opportunity to learn about different circuit designs. This plan involved generating a clock signal with a Pierce oscillator circuit, which would then be fed to a 4-bit counter. This 4-bit counter would thus count at the input frequency and be able to sweep through the 8-1 multiplexor entirely independent of the RP2040. Ultimately, we were not able to debug this design in time, and chose a simpler implementation. 
+
+![Switches]({{ site.baseurl }}/assets/images/Switches.jpg)
 
 --- 
 
