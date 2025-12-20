@@ -7,7 +7,11 @@ nav_order: 3
 
 At 30 FPS, we are able to simulate a max of 800 balls before frame rate drops. However around 200 balls can be displayed before the tree graph overflows.
 
-[![Screenshot]({{ site.baseurl }}/assets/images/Screen.png)]({{ site.baseurl }}/assets/images/Screen.png)
+<p align="center">
+  <a href="{{ "/assets/images/Screen.png" | relative_url }}">
+    <img src="{{ "/assets/images/Screen.png" | relative_url }}" alt="Screenshot" width="70%">
+  </a>
+</p>
 
 Throughout testing, the system exhibited stable and responsive behavior with no visible flicker, tearing, or hesitation during normal operation. VGA timing remained consistent, and drawing was synchronized to the display refresh to avoid artifacts. User interactions through the potentiometer sliders resulted in immediate and smooth parameter updates, demonstrating good interactivity. The use of concurrent execution which included separating simulation updates, ADC input handling, and VGA rendering into different protothreads and cores, we were able to allow the system to remain responsive even as computational load increased.
 
