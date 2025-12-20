@@ -212,7 +212,13 @@ All of our designs were done on breadboard, then hand-soldered in order to impro
 
 </div>
 
-![VGA and Audio]({{ site.baseurl }}/assets/images/VGAaudio.jpg)
+<p align="center">
+  <img
+    src="{{ "/assets/images/VGAaudio.jpg" | relative_url }}"
+    alt="VGA and Audio"
+    style="width: 50%; height: auto;"
+  >
+</p>
 
 --- 
 
@@ -224,7 +230,13 @@ The five slider switches we used are 10kOhm potentiometers. We decided to use th
 
 Originally, we planned on employing more ICs in order to minimize the work done by the Raspberry Pi Pico, as well as an opportunity to learn about different circuit designs. This plan involved generating a clock signal with a Pierce oscillator circuit, which would then be fed to a 4-bit counter. This 4-bit counter would thus count at the input frequency and be able to sweep through the 8-1 multiplexor entirely independent of the RP2040. Ultimately, we were not able to debug this design in time, and chose a simpler implementation. 
 
-![Switches]({{ site.baseurl }}/assets/images/Switches.jpg)
+<p align="center">
+  <img
+    src="{{ "/assets/images/Switches.jpg" | relative_url }}"
+    alt="Switches"
+    style="transform: rotate(90deg); width: 40%; height: auto; margin: 40px 0;"
+  >
+</p>
 
 --- 
 
